@@ -2,7 +2,9 @@ package org.arwani;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,7 +31,6 @@ public class TweetSearchResultsController {
     private Button csvButton;
 
 
-
     @FXML
     private Button GoBackButton;
 
@@ -40,7 +41,7 @@ public class TweetSearchResultsController {
     private Button searchingButton;
 
     @FXML
-    void StartSearching(ActionEvent event)  {
+    void StartSearching(ActionEvent event) {
         searchingButton.setDisable(true);
         searchingButton.setVisible(false);
 
@@ -57,16 +58,7 @@ public class TweetSearchResultsController {
 
         tweetTable.getColumns().addAll(columnAuthor_id, columnCreated_at, columnId, columnLang, columnLike,
                 columnQuote, columnReply, columnRetweet, columnText);
-        tweetTable.setVisible(true);
-        ///time consuming process
-        TweetSearch tweetSearch = new TweetSearch();
-        twee = tweetSearch.search(QueryBuilderController.getSearchQuery());
 
-
-        if (twee != null) {
-            ObservableList<Tweet> tableData = FXCollections.observableArrayList(List.copyOf(twee));
-            tweetTable.setItems(tableData);
-        }
         columnAuthor_id.setCellValueFactory(new PropertyValueFactory<>("author_id"));
         columnCreated_at.setCellValueFactory(new PropertyValueFactory<>("created_at"));
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -76,30 +68,52 @@ public class TweetSearchResultsController {
         columnReply.setCellValueFactory(new PropertyValueFactory<>("reply_count"));
         columnRetweet.setCellValueFactory(new PropertyValueFactory<>("retweet_count"));
         columnText.setCellValueFactory(new PropertyValueFactory<>("text"));
-        if(twee.size() >= 1) {
-            csvButton.setDisable(false);
-        }
+
+
+        SearchTask searchTask = new SearchTask();
+        Thread thread = new Thread(searchTask);
+        thread.setDaemon(true);
+        thread.start();
+        searchTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent t) {
+                twee = searchTask.getValue();
+                if (twee != null) {
+                    ObservableList<Tweet> tableData = FXCollections.observableArrayList(List.copyOf(twee));
+                    tweetTable.setItems(tableData);
+
+
+                }
+                tweetTable.setVisible(true);
+                if (twee.size() >= 1) {
+                    csvButton.setDisable(false);
+                }
+            }
+        });
+//        while (thread.isAlive()) {
+//
+//        }
 
 
     }
-    //todo complete the extraction work
+
+
     @FXML
     void generateCsv(ActionEvent event) throws IOException {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog((Stage) ((Node) event.getSource()).getScene().getWindow());
 
-        if(selectedDirectory == null){
+        if (selectedDirectory == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Path not found");
             alert.setHeaderText("A path is required");
             alert.setContentText("Please select a path");
             alert.show();
-        }else{
+        } else {
             CsvWriter.writeCsv(selectedDirectory.getAbsolutePath());
         }
 
     }
-
 
 
     @FXML
