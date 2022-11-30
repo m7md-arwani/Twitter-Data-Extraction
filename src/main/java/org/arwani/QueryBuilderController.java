@@ -40,7 +40,13 @@ public class QueryBuilderController {
   if (queryHolder.getLength() <= 525) {
       limitText.setText("Query Size Limit 525/" + queryHolder.getLength());
       queryText = queryHolder.getText();
+      if (queryHolder.getLength() > 0) {
+       nextButton.setDisable(false);
+      } else {
+       nextButton.setDisable(true);
+      }
   } else {
+   nextButton.setDisable(true);
    Alert alert = new Alert(Alert.AlertType.INFORMATION);
    alert.setTitle("Query Limit exceeded");
    alert.setHeaderText("Your query reached " + queryHolder.getLength() + "!");
