@@ -11,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -48,11 +47,7 @@ public class QueryBuilderController {
         if (queryHolder.getLength() <= 525) {
             limitText.setText("525/" + queryHolder.getLength());
             queryText = queryHolder.getText();
-            if (queryHolder.getLength() > 0) {
-                nextButton.setDisable(false);
-            } else {
-                nextButton.setDisable(true);
-            }
+            nextButton.setDisable(queryHolder.getLength() <= 0);
         } else {
             nextButton.setDisable(true);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -75,20 +70,13 @@ public class QueryBuilderController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        root.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
+        root.setOnMousePressed(event1 -> {
+            xOffset = event1.getSceneX();
+            yOffset = event1.getSceneY();
         });
-        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
-            }
+        root.setOnMouseDragged(event12 -> {
+            stage.setX(event12.getScreenX() - xOffset);
+            stage.setY(event12.getScreenY() - yOffset);
         });
         stage.show();
 
@@ -96,8 +84,7 @@ public class QueryBuilderController {
 
     @FXML
     void closeStage(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
