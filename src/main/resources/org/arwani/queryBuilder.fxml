@@ -1,16 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.arwani.QueryBuilderController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.arwani.QueryBuilderController">
    <children>
-      <Hyperlink fx:id="linkToQueryBuilder" layoutX="239.0" layoutY="180.0" onAction="#clicked" text="Create Search Querey" />
-      <Text fx:id="limitText" layoutX="425.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Query Size Limit 525/0" />
-      <Button fx:id="nextButton" disable="true" layoutX="444.0" layoutY="262.0" mnemonicParsing="false" onAction="#switchToNextScene" text="Next" />
-      <TextField fx:id="queryHolder" layoutX="138.0" layoutY="219.0" onKeyReleased="#checkLength" prefHeight="25.0" prefWidth="263.0" promptText="Paste Your Query Here" />
+      <VBox alignment="CENTER" layoutY="36.0" prefHeight="434.0" prefWidth="519.0" spacing="45.0" style="-fx-background-color: #90E0EF;" AnchorPane.leftAnchor="0.0">
+         <children>
+            <Hyperlink fx:id="linkToQueryBuilder" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="CENTER" onAction="#clicked" prefHeight="26.0" prefWidth="377.0" scaleShape="false" style="-fx-background-radius: 50;" text="Click to Create your Search Query" textAlignment="CENTER" textFill="#0077b6">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Hyperlink>
+            <TextField fx:id="queryHolder" alignment="CENTER" onKeyReleased="#checkLength" prefHeight="26.0" prefWidth="238.0" promptText="Paste Your Query Here" style="-fx-background-color: #0077b6; -fx-background-radius: 50;">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </TextField>
+            <Text fx:id="limitText" fill="#0077b6" strokeType="OUTSIDE" strokeWidth="0.0" text="525/0" textAlignment="RIGHT" wrappingWidth="368.1496047973633">
+               <VBox.margin>
+                  <Insets top="-40.0" />
+               </VBox.margin>
+            </Text>
+            <Button fx:id="nextButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#switchToNextScene" prefHeight="26.0" prefWidth="66.0" style="-fx-background-color: #0077b6; -fx-background-radius: 50;" text="Next" textAlignment="CENTER" textFill="WHITE">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="313.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="100.0" left="70.0" right="70.0" top="100.0" />
+         </padding>
+      </VBox>
+      <AnchorPane layoutY="-7.0" prefHeight="45.0" prefWidth="519.0" style="-fx-background-color: #0077B6;">
+         <children>
+            <Text fill="#90e0ef" layoutX="40.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Twitter Data Extraction" textAlignment="CENTER">
+               <font>
+                  <Font name="Gabriola" size="30.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="37.0" fitWidth="40.0" layoutY="13.0">
+               <image>
+                  <Image url="@../../icons/twitter_480px.png" />
+               </image></ImageView>
+            <Button fx:id="closeButton" layoutX="473.0" layoutY="16.0" mnemonicParsing="false" onAction="#closeStage" prefHeight="30.0" prefWidth="34.0" style="-fx-background-radius: 5; -fx-background-color: #90E0EF;" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="22.0">
+                     <image>
+                        <Image url="@../../icons/close_480px_1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="471.0" prefHeight="45.0" prefWidth="519.0" style="-fx-background-color: #0077B6;">
+         <children>
+            <Text fill="#90e0ef" layoutX="226.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arwani" textAlignment="CENTER">
+               <font>
+                  <Font name="Gabriola" size="30.0" />
+               </font>
+            </Text>
+            <Text fill="#90e0ef" layoutX="210.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By" textAlignment="CENTER">
+               <font>
+                  <Font name="Gabriola" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -24,8 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TweetSearchResultsController {
+    private double xOffset = 0;
+    private double yOffset = 0;
     //keeping results accessible for later usage.
     public static ArrayList<Tweet> twee;
+
 
     @FXML
     private Button csvButton;
@@ -55,6 +59,7 @@ public class TweetSearchResultsController {
         TableColumn columnReply = new TableColumn("Replies");
         TableColumn columnRetweet = new TableColumn("Retweets");
         TableColumn columnText = new TableColumn("Text");
+        //columnAuthor_id.setPrefWidth(100);
 
         tweetTable.getColumns().addAll(columnAuthor_id, columnCreated_at, columnId, columnLang, columnLike,
                 columnQuote, columnReply, columnRetweet, columnText);
@@ -122,6 +127,21 @@ public class TweetSearchResultsController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
         stage.show();
 
     }
