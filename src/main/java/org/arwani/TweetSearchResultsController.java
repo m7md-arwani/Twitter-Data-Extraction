@@ -1,6 +1,7 @@
 package org.arwani;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -16,11 +17,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +38,10 @@ public class TweetSearchResultsController {
 
     @FXML
     private Button csvButton;
+
+
+    @FXML
+    private Button closeButton;
 
 
     @FXML
@@ -59,7 +68,26 @@ public class TweetSearchResultsController {
         TableColumn columnReply = new TableColumn("Replies");
         TableColumn columnRetweet = new TableColumn("Retweets");
         TableColumn columnText = new TableColumn("Text");
-        //columnAuthor_id.setPrefWidth(100);
+
+        columnText.setPrefWidth(300);
+        columnAuthor_id.setPrefWidth(133);
+        columnCreated_at.setPrefWidth(133);
+        columnId.setPrefWidth(133);
+        columnLang.setPrefWidth(50);
+        columnLike.setPrefWidth(50);
+        columnQuote.setPrefWidth(50);
+        columnReply.setPrefWidth(50);
+        columnRetweet.setPrefWidth(50);
+
+        columnLang.setStyle(" -fx-alignment: CENTER");
+        columnAuthor_id.setStyle(" -fx-alignment: CENTER");
+        columnCreated_at.setStyle(" -fx-alignment: CENTER");
+        columnLike.setStyle(" -fx-alignment: CENTER");
+        columnQuote.setStyle(" -fx-alignment: CENTER");
+        columnReply.setStyle(" -fx-alignment: CENTER");
+        columnId.setStyle(" -fx-alignment: CENTER");
+        columnRetweet.setStyle(" -fx-alignment: CENTER");
+
 
         tweetTable.getColumns().addAll(columnAuthor_id, columnCreated_at, columnId, columnLang, columnLike,
                 columnQuote, columnReply, columnRetweet, columnText);
@@ -146,4 +174,18 @@ public class TweetSearchResultsController {
 
     }
 
+    @FXML
+    void closeStage(ActionEvent event) {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.close();
+
+    }
+
+
+
+
+
+
 }
+
+

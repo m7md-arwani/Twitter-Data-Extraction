@@ -4,6 +4,7 @@ import com.twitter.clientlib.ApiException;
 import com.twitter.clientlib.TwitterCredentialsBearer;
 import com.twitter.clientlib.api.TwitterApi;
 import com.twitter.clientlib.model.Get2TweetsSearchRecentResponse;
+import javafx.scene.control.Alert;
 import org.arwani.jsonParser.json;
 
 import java.util.ArrayList;
