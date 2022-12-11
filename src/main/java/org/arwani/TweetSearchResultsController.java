@@ -1,5 +1,7 @@
 package org.arwani;
 
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -18,9 +20,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +42,13 @@ public class TweetSearchResultsController {
 
     @FXML
     private Button csvButton;
+
+    @FXML
+    private Rectangle animationRec;
+
+    @FXML
+    private Text loadingText;
+
 
 
     @FXML
@@ -79,14 +90,17 @@ public class TweetSearchResultsController {
         columnReply.setPrefWidth(50);
         columnRetweet.setPrefWidth(50);
 
-        columnLang.setStyle(" -fx-alignment: CENTER");
-        columnAuthor_id.setStyle(" -fx-alignment: CENTER");
-        columnCreated_at.setStyle(" -fx-alignment: CENTER");
-        columnLike.setStyle(" -fx-alignment: CENTER");
-        columnQuote.setStyle(" -fx-alignment: CENTER");
-        columnReply.setStyle(" -fx-alignment: CENTER");
-        columnId.setStyle(" -fx-alignment: CENTER");
-        columnRetweet.setStyle(" -fx-alignment: CENTER");
+        tweetTable.setStyle("-fx-background-color:  #90E0EF");
+        columnText.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF;");
+        columnLang.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
+        columnAuthor_id.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
+        columnCreated_at.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
+        columnLike.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
+        columnQuote.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
+        columnReply.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
+        columnId.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
+        columnRetweet.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
+
 
 
         tweetTable.getColumns().addAll(columnAuthor_id, columnCreated_at, columnId, columnLang, columnLike,
@@ -102,6 +116,13 @@ public class TweetSearchResultsController {
         columnRetweet.setCellValueFactory(new PropertyValueFactory<>("retweet_count"));
         columnText.setCellValueFactory(new PropertyValueFactory<>("text"));
 
+
+
+        Runnable animateThread = () ->{
+           animation();
+        };
+        Thread animate = new Thread(animateThread);
+        animate.start();
 
         SearchTask searchTask = new SearchTask();
         Thread thread = new Thread(searchTask);
@@ -121,11 +142,20 @@ public class TweetSearchResultsController {
                 if (twee.size() >= 1) {
                     csvButton.setDisable(false);
                 }
+                animate.interrupt();
+                loadingText.setDisable(true);
+                loadingText.setVisible(false);
+                animationRec.setDisable(true);
+                animationRec.setVisible(false);
+
             }
+
+
         });
-//        while (thread.isAlive()) {
-//
-//        }
+
+
+
+
 
 
     }
@@ -178,6 +208,19 @@ public class TweetSearchResultsController {
     void closeStage(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
+
+    }
+
+    public void  animation() {
+        loadingText.setVisible(true);
+        animationRec.setVisible(true);
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setDuration(Duration.seconds(1.5));
+        rotateTransition.setNode(animationRec);
+        rotateTransition.setByAngle(360);
+        rotateTransition.setCycleCount(100);
+        rotateTransition.setAutoReverse(true);
+        rotateTransition.play();
 
     }
 

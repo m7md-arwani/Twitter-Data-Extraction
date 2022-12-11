@@ -70,8 +70,6 @@ public class QueryBuilderController {
         Parent root = FXMLLoader.load(getClass().getResource("tweetSearchResults.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        //scene.getStylesheets().clear();
-        //scene.getStylesheets().add("C:/Users/Arwani/Desktop/Fall Semester 2022-2023/Graduation Project- Serious stuff/javafx/Twitter Data Extraction/src/main/java/org/arwani/css/tableStyle.css");
         stage.setScene(scene);
         root.setOnMousePressed(event1 -> {
             xOffset = event1.getSceneX();

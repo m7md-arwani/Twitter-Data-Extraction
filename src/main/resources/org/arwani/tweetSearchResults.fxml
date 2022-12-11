@@ -5,6 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -16,10 +17,6 @@
             <Font size="13.0" />
          </font></Button>
       <Button fx:id="csvButton" disable="true" layoutX="880.0" layoutY="499.0" mnemonicParsing="false" onAction="#generateCsv" prefHeight="27.0" prefWidth="65.0" style="-fx-background-radius: 50; -fx-background-color: #0077b6;" text="To CSV" textFill="WHITE">
-         <font>
-            <Font size="13.0" />
-         </font></Button>
-      <Button fx:id="searchingButton" layoutX="428.0" layoutY="256.0" mnemonicParsing="false" onAction="#StartSearching" style="-fx-background-radius: 50; -fx-background-color: #0077b6;" text="Start Searching" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font></Button>
@@ -46,5 +43,15 @@
             </Button>
          </children>
       </AnchorPane>
+      <Rectangle fx:id="animationRec" arcHeight="5.0" arcWidth="5.0" fill="#0077b6" height="140.0" layoutX="409.0" layoutY="213.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="140.0" />
+      <Text fx:id="loadingText" fill="#90e0ef" layoutX="428.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading" textAlignment="CENTER" visible="false" wrappingWidth="104.79999999999995">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <Button fx:id="searchingButton" layoutX="428.0" layoutY="256.0" mnemonicParsing="false" onAction="#StartSearching" style="-fx-background-radius: 50; -fx-background-color: #0077b6;" text="Start Searching" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
    </children>
 </AnchorPane>
