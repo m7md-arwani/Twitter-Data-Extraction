@@ -1,9 +1,7 @@
 package org.arwani;
 
 import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -19,7 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -28,8 +25,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +43,6 @@ public class TweetSearchResultsController {
 
     @FXML
     private Text loadingText;
-
 
 
     @FXML
@@ -102,7 +96,6 @@ public class TweetSearchResultsController {
         columnRetweet.setStyle(" -fx-alignment: CENTER; -fx-background-color:  #90E0EF");
 
 
-
         tweetTable.getColumns().addAll(columnAuthor_id, columnCreated_at, columnId, columnLang, columnLike,
                 columnQuote, columnReply, columnRetweet, columnText);
 
@@ -117,10 +110,7 @@ public class TweetSearchResultsController {
         columnText.setCellValueFactory(new PropertyValueFactory<>("text"));
 
 
-
-        Runnable animateThread = () ->{
-           animation();
-        };
+        Runnable animateThread = this::animation;
         Thread animate = new Thread(animateThread);
         animate.start();
 
@@ -154,17 +144,13 @@ public class TweetSearchResultsController {
         });
 
 
-
-
-
-
     }
 
 
     @FXML
     void generateCsv(ActionEvent event) throws IOException {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedDirectory = directoryChooser.showDialog((Stage) ((Node) event.getSource()).getScene().getWindow());
+        File selectedDirectory = directoryChooser.showDialog(((Node) event.getSource()).getScene().getWindow());
 
         if (selectedDirectory == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -211,7 +197,7 @@ public class TweetSearchResultsController {
 
     }
 
-    public void  animation() {
+    public void animation() {
         loadingText.setVisible(true);
         animationRec.setVisible(true);
         RotateTransition rotateTransition = new RotateTransition();
@@ -223,10 +209,6 @@ public class TweetSearchResultsController {
         rotateTransition.play();
 
     }
-
-
-
-
 
 
 }

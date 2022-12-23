@@ -2,7 +2,6 @@ package org.arwani.jsonParser;
 
 
 import javafx.scene.control.Alert;
-import org.arwani.TweetSearchResultsController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +13,7 @@ public class json {
 
     private String json;
     private JSONObject jsonObject;
-    //private Object obj;
+
 
 
     public void setJson(String json)  {

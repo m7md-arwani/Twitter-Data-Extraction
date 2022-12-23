@@ -26,6 +26,7 @@ public static void writeCsv(String path) throws IOException {
     }
     finally {
 
+        assert writer != null;
         writer.flush();
         writer.close();
     }
