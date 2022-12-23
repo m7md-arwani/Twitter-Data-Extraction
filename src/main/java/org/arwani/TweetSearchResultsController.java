@@ -218,7 +218,7 @@ public class TweetSearchResultsController {
         rotateTransition.setDuration(Duration.seconds(1.5));
         rotateTransition.setNode(animationRec);
         rotateTransition.setByAngle(360);
-        rotateTransition.setCycleCount(100);
+        rotateTransition.setCycleCount(150);
         rotateTransition.setAutoReverse(true);
         rotateTransition.play();
 
