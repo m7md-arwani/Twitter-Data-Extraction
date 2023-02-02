@@ -1,5 +1,9 @@
 package org.arwani;
 
+/**
+ * The Tweet class represents a Tweet with all its needed attributes with their setters and getters.
+ *
+ */
 public class Tweet {
 
     private String author_id;

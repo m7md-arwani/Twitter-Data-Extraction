@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * The QueryBuilderController controls the behavior of the elements available in the main interface of the application.
+ * Controlled behaviors like clicks, transitions between pages, restrictions check.
+ */
 public class QueryBuilderController {
     private double xOffset = 0;
     private double yOffset = 0;
@@ -38,7 +42,8 @@ public class QueryBuilderController {
 
     @FXML
     private TextField queryHolder;
-
+    // Restricted by Twitter API, the query search should not exceed 525 characters.
+    // If exceeded the user will be notified via a GUI alert
     @FXML
     void checkLength(KeyEvent event) {
         if (queryHolder.getLength() <= 525) {
@@ -55,7 +60,7 @@ public class QueryBuilderController {
         }
 
     }
-
+    // Outsourcing the query-builder functionality.
     @FXML
     void clicked(ActionEvent event) throws URISyntaxException, IOException {
         Desktop.getDesktop().browse(new URI("https://developer.twitter.com/apitools/query?query="));

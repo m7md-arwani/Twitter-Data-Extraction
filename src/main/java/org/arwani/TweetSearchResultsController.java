@@ -28,6 +28,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The TweetSearchResultsController controls the behavior of the second page of the application, where the user will be able to see the results in a table,
+ * and extract it into a CSV file.
+ *
+ */
 public class TweetSearchResultsController {
     private double xOffset = 0;
     private double yOffset = 0;
@@ -58,6 +63,16 @@ public class TweetSearchResultsController {
     @FXML
     private Button searchingButton;
 
+    /**
+     * The method when triggered:
+     * disables, and hide the search button
+     * Makes the table visible Note: due to JavaFX related issues the decoration and styling had to be done manually.
+     * Runs the search on a special thread
+     * Runs "Loading" animation on a special thrid
+     * Checks whether the CSV button should be enabled or not, based on the search results number
+     * if it is higher than or equal to 1, then Enable it.
+     * @param event
+     */
     @FXML
     void StartSearching(ActionEvent event) {
         searchingButton.setDisable(true);
@@ -109,15 +124,16 @@ public class TweetSearchResultsController {
         columnRetweet.setCellValueFactory(new PropertyValueFactory<>("retweet_count"));
         columnText.setCellValueFactory(new PropertyValueFactory<>("text"));
 
-
+        // Starting the animation on a special thread
         Runnable animateThread = this::animation;
         Thread animate = new Thread(animateThread);
         animate.start();
-
+        // Starting the search Task on its own thread
         SearchTask searchTask = new SearchTask();
         Thread thread = new Thread(searchTask);
         thread.setDaemon(true);
         thread.start();
+
         searchTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent t) {
