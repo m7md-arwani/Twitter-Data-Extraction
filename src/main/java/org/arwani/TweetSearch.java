@@ -18,7 +18,6 @@ import java.util.Set;
 public class TweetSearch {
     private String next_token;
     // not the best practice though :)
-    // TODO: deactivate the token when going public
     private final String bearerToken = "AAAAAAAAAAAAAAAAAAAAAD1jiQEAAAAAvngEPMKNMkUwvRhjel1J1xAbVC8%3DV2foNAceiGNO3Aq0appUgXkMRLofuMzuoy6N0tCtQQPOC4rkF7";
     private final TwitterCredentialsBearer credentials = new TwitterCredentialsBearer(bearerToken);
     private final TwitterApi apiInstance = new TwitterApi(credentials);
